@@ -12,21 +12,15 @@ public class PlayerMovement : MonoBehaviour
     public float playerRotationSpeed = 100f;
     public float playerRotationResetSpeed = 130f;
     public float playerRotationTreshold = 0.05f;
-
-    void Start()
-    {
-        Debug.Log(tr.rotation.y);
-    }
+    public float additionalDownwardForce = 500f;
 
     void Update()
     {
-        Debug.Log(tr.rotation.y);
         if (Input.GetKey("d"))
         {
             if (tr.rotation.y <= playerRotationTreshold)
             {
                 tr.Rotate(0f, playerRotationSpeed * Time.deltaTime, 0f, Space.Self);
-                Debug.Log(tr.rotation.y);
             }
         }
         else if (Input.GetKey("a"))
@@ -34,7 +28,6 @@ public class PlayerMovement : MonoBehaviour
             if (tr.rotation.y >= -playerRotationTreshold)
             {
                 tr.Rotate(0f, -playerRotationSpeed * Time.deltaTime, 0f, Space.Self);
-                Debug.Log(tr.rotation.y);
             }
         }
         if (tr.rotation.y >= 0.01f)
@@ -50,7 +43,7 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        rb.AddForce(0, 0, playerForwardSpeed * Time.deltaTime);
+        rb.AddForce(0, -additionalDownwardForce * Time.deltaTime, playerForwardSpeed * Time.deltaTime);
 
         if (Input.GetKey("d"))
         {

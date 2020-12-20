@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     bool failState = false;
-
+    public GameObject levelCompleteScreen;
     public float restartDelay = 2f;
 
     public void GameOver ()
@@ -16,6 +16,11 @@ public class GameManager : MonoBehaviour
             failState = true;
             Invoke("Restart", restartDelay);
         }
+    }
+
+    public void EndLevel ()
+    {
+        levelCompleteScreen.SetActive(true);
     }
 
     void Restart ()
